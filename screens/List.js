@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
+import CharacterList from "../components/listScreen/CharacterList";
 import globals from "../styles/globals";
 
-function Other(props) {
+function List({ route }) {
+  const listChoice = route.params;
+  console.log(route.params.listName);
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.text}>Hejsan</Text>
-      <Button
-        title="Fly you fools"
-        onPress={() => props.navigation.navigate("Home")}
-      />
+      <CharacterList props={listChoice} style={styles.list} />
     </View>
   );
 }
@@ -27,6 +26,11 @@ const styles = StyleSheet.create({
     color: globals.textColor.yellowGrey,
     fontSize: globals.fontSize.headerOne,
   },
+  list: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
-export default Other;
+export default List;

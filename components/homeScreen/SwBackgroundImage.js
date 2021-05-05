@@ -4,15 +4,16 @@ import { useNavigation } from "@react-navigation/native";
 
 function BackgroundImage(props) {
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => navigation.navigate("List", { listName: "lotr" })}
+      onPress={() => navigation.navigate("List", { listName: "starwars" })}
     >
       <Image
-        resizeMode="contain"
         style={styles.image}
-        source={require("../../assets/background/One_Ring_Blender_Render.png")}
+        resizeMode="contain"
+        source={require("../../assets/background/starwars.png")}
       />
     </TouchableOpacity>
   );

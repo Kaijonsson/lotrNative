@@ -1,4 +1,4 @@
-export default globals = {
+export default {
   backgroundColor: {
     mainBackground: "black",
   },

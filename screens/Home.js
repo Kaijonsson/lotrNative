@@ -1,28 +1,26 @@
 import React from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import BackgroundImage from "../components/homeScreen/BackgroundImage";
+import SwBackgroundImage from "../components/homeScreen/SwBackgroundImage";
 
 function Home(props) {
   return (
     <View style={styles.homeContainer}>
+      <SwBackgroundImage />
       <BackgroundImage />
-      <Button
-        title="Speak friend, and enter."
-        onPress={() => props.navigation.navigate("Other")}
-      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   homeContainer: {
-    display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "black",
     height: "100%",
     width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
