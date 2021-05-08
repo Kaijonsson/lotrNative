@@ -8,7 +8,7 @@ import Axios from "axios";
 function CharacterList(props) {
   const [characters, setCharacters] = useState([]);
   const navigation = useNavigation();
-  console.log(props.list.listName);
+  console.log(props);
 
   // setList(this.props.activeList);
 
