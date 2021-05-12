@@ -4,17 +4,19 @@ import { useState, useEffect } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
 import globals from "../../styles/globals";
 import Axios from "axios";
+import { SWAPI_URL, LOTR_URL, BEARER_TOKEN } from "@env";
 
 function CharacterList({ props }) {
   const [characters, setCharacters] = useState([]);
   const navigation = useNavigation();
   console.log(props.listName);
+  console.log(SWAPI_URL);
 
   useEffect(() => {
     const userChoice = props.listName;
     try {
       if (userChoice === "starwars") {
-        Axios.get("https://swapi.dev/api/people/").then((response) => {
+        Axios.get(`${SWAPI_URL}/people/`).then((response) => {
           setCharacters(
             response.data.results.map((character) => {
               return character;
@@ -23,9 +25,9 @@ function CharacterList({ props }) {
         });
       }
       if (userChoice === "lotr") {
-        Axios.get("https://the-one-api.dev/v2/character?limit=10", {
+        Axios.get(`${LOTR_URL}/character?limit=10`, {
           headers: {
-            authorization: "Bearer rb8lEB0II3xUMXpvhtBC",
+            authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }).then((response) => {
           console.log(response.data.docs);
