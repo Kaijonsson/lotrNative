@@ -5,50 +5,41 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
 import globals from "../../styles/globals";
 import Axios from "axios";
 
-function CharacterList(props) {
+function CharacterList({ props }) {
   const [characters, setCharacters] = useState([]);
   const navigation = useNavigation();
-  console.log(props);
-
-  // setList(this.props.activeList);
-
-  // useEffect(() => {
-  //   Axios.get("https://the-one-api.dev/v2/character", {
-  //     headers: {
-  //       authorization: "Bearer 591H4_j3rbAEDTwU_mNY",
-  //     },
-  //   }).then((response) => {
-  //     console.log(response.data.docs);
-  //     setCharacters(
-  //       response.data.docs.map((character) => {
-  //         return character;
-  //       })
-  //     );
-  //   });
-  // }, []);
-
-  // const charList = characters.map((character) => {
-  //   return (
-  //     <TouchableOpacity
-  //       key={character._id}
-  //       onPress={() => navigation.navigate("CharacterCard", { character })}
-  //     >
-  //       <Text style={styles.nameList} key={character._id}>
-  //         {character.name}
-  //       </Text>
-  //     </TouchableOpacity>
-  //   );
-  // });
+  console.log(props.listName);
 
   useEffect(() => {
-    Axios.get("https://swapi.dev/api/people").then((response) => {
-      setCharacters(
-        response.data.results.map((character) => {
-          return character;
-        })
-      );
-    });
-  });
+    const userChoice = props.listName;
+    try {
+      if (userChoice === "starwars") {
+        Axios.get("https://swapi.dev/api/people/").then((response) => {
+          setCharacters(
+            response.data.results.map((character) => {
+              return character;
+            })
+          );
+        });
+      }
+      if (userChoice === "lotr") {
+        Axios.get("https://the-one-api.dev/v2/character?limit=10", {
+          headers: {
+            authorization: "Bearer rb8lEB0II3xUMXpvhtBC",
+          },
+        }).then((response) => {
+          console.log(response.data.docs);
+          setCharacters(
+            response.data.docs.map((character) => {
+              return character;
+            })
+          );
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const charList = characters.map((character) => {
     return (
