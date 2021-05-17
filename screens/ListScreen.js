@@ -1,13 +1,15 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import CharacterList from "../components/listScreen/CharacterList";
+import Search from "../components/listScreen/Search";
 import globals from "../styles/globals";
 
 function List({ route }) {
   const listChoice = route.params;
-  console.log(route.params.listName);
+
   return (
     <View style={styles.mainContainer}>
+      <Search props={listChoice} />
       <CharacterList props={listChoice} style={styles.list} />
     </View>
   );

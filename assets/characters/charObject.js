@@ -2,15 +2,15 @@ export default {
   characters: [
     {
       name: "Luke Skywalker",
-      picture: "/characters/skywalker.jpg",
+      image: require("./skywalker.jpg"),
     },
     {
       name: "Darth Vader",
-      picture: "/characters/vader.jpeg",
+      image: require("./vader.jpeg"),
     },
     {
       name: "Aegnor",
-      picture: "/characters/aegnor.jpg",
+      image: require("./aegnor.jpg"),
     },
   ],
 };

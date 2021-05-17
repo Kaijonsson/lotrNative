@@ -9,8 +9,6 @@ import { SWAPI_URL, LOTR_URL, BEARER_TOKEN } from "@env";
 function CharacterList({ props }) {
   const [characters, setCharacters] = useState([]);
   const navigation = useNavigation();
-  console.log(props.listName);
-  console.log(SWAPI_URL);
 
   useEffect(() => {
     const userChoice = props.listName;
@@ -30,7 +28,6 @@ function CharacterList({ props }) {
             authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }).then((response) => {
-          console.log(response.data.docs);
           setCharacters(
             response.data.docs.map((character) => {
               return character;

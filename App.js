@@ -3,10 +3,10 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet } from "react-native";
-import Home from "./screens/Home";
-import List from "./screens/List";
+import Home from "./screens/HomeScreen";
+import List from "./screens/ListScreen";
 import globals from "./styles/globals";
-import CharacterCard from "./screens/CharacterCard";
+import CharacterCard from "./screens/CharacterScreen";
 
 export default function App() {
   const Stack = createStackNavigator();

@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import BackgroundImage from "../components/homeScreen/BackgroundImage";
 import SwBackgroundImage from "../components/homeScreen/SwBackgroundImage";
 
-function Home(props) {
+function Home() {
   return (
     <View style={styles.homeContainer}>
       <SwBackgroundImage />
