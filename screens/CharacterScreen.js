@@ -3,17 +3,17 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import globals from "../styles/globals";
 import dataBase from "../assets/characters/charObject";
 
-function CharacterCard({ route }) {
-  const character = route.params.characterData
-    ? route.params.characterData
-    : route.params.searchedCharacter;
+function CharacterScreen({ route }) {
+  const pressedCharacter = route.params.characterData;
+  const searchedCharacter = route.params.searchedCharacter;
 
-  const characterImage = () => {
+  const character = pressedCharacter ? pressedCharacter : searchedCharacter;
+  const chosenCharacter = dataBase.characters.find(
+    (element) => element.name === character.name
+  );
+  const characterCard = () => {
     console.log(character);
     try {
-      const chosenCharacter = dataBase.characters.find(
-        (element) => element.name === character.name
-      );
       return (
         <View style={styles.background}>
           <Image
@@ -25,7 +25,8 @@ function CharacterCard({ route }) {
         </View>
       );
     } catch (err) {
-      if (character === null || "underfined") {
+      console.log(character);
+      if (character === undefined) {
         return (
           <View style={styles.background}>
             <Text style={styles.text}>
@@ -34,11 +35,22 @@ function CharacterCard({ route }) {
           </View>
         );
       }
-      console.log(err);
+      if (chosenCharacter === undefined) {
+        return (
+          <View style={styles.background}>
+            <Image
+              resizeMode="contain"
+              style={styles.image}
+              source={require("../assets/favicon.png")}
+            />
+            <Text style={styles.text}>{character.name}</Text>
+          </View>
+        );
+      }
     }
   };
 
-  return <View style={styles.sizingContainer}>{characterImage()}</View>;
+  return <View style={styles.sizingContainer}>{characterCard()}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -62,4 +74,4 @@ const styles = StyleSheet.create({
     width: "30%",
   },
 });
-export default CharacterCard;
+export default CharacterScreen;

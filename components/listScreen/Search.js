@@ -16,7 +16,6 @@ const Search = (prop) => {
 
   const listChoice = prop.props;
   const [userInput, setUserInput] = useState("");
-  //   const [searchValue, setSearchValue] = useState("");
 
   const Navigation = (character) => {
     navigation.navigate("CharacterScreen", {
@@ -34,19 +33,21 @@ const Search = (prop) => {
         console.log(err);
       }
     }
-    //   if (listChoice === "lotr") {
-    //     Axios.get(`${LOTR_URL}/character?limit=10`, {
-    //       headers: {
-    //         authorization: `Bearer ${BEARER_TOKEN}`,
-    //       },
-    //     }).then((response) => {
-    //       setCharacters(
-    //         response.data.docs.map((character) => {
-    //           return character;
-    //         })
-    //       );
-    //     });
-    //   }
+    if (listChoice.listName === "lotr") {
+      console.log(listChoice);
+      try {
+        Axios.get(`${LOTR_SEARCH + userInput}`, {
+          headers: {
+            authorization: `Bearer ${BEARER_TOKEN}`,
+          },
+        }).then((response) => {
+          console.log(response);
+          console.log(response.data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
   const addPlaceholder = (prop) => {
     if (prop.listName === "starwars") {
