@@ -5,12 +5,11 @@ import dataBase from "../assets/characters/charObject";
 
 function CharacterCard({ route }) {
   const character = route.params.characterData
-    ? !route.params.characterData
+    ? route.params.characterData
     : route.params.searchedCharacter;
 
   const characterImage = () => {
     console.log(character);
-
     try {
       const chosenCharacter = dataBase.characters.find(
         (element) => element.name === character.name

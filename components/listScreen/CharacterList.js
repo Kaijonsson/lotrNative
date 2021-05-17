@@ -12,6 +12,7 @@ function CharacterList({ props }) {
 
   useEffect(() => {
     const userChoice = props.listName;
+    console.log(userChoice);
     try {
       if (userChoice === "starwars") {
         Axios.get(`${SWAPI_URL}/people/`).then((response) => {
@@ -45,7 +46,7 @@ function CharacterList({ props }) {
       <TouchableOpacity
         key={character.name}
         onPress={() =>
-          navigation.navigate("CharacterCard", { characterData: character })
+          navigation.navigate("CharacterScreen", { characterData: character })
         }
       >
         <Text style={styles.nameList}> {character.name}</Text>

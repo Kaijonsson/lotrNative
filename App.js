@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 import Home from "./screens/HomeScreen";
 import List from "./screens/ListScreen";
 import globals from "./styles/globals";
-import CharacterCard from "./screens/CharacterScreen";
+import CharacterScreen from "./screens/CharacterScreen";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -25,8 +25,8 @@ export default function App() {
         />
         <Stack.Screen
           options={globals.headerOptions}
-          name="CharacterCard"
-          component={CharacterCard}
+          name="CharacterScreen"
+          component={CharacterScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

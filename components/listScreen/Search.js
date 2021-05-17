@@ -19,7 +19,7 @@ const Search = (prop) => {
   //   const [searchValue, setSearchValue] = useState("");
 
   const Navigation = (character) => {
-    navigation.navigate("CharacterCard", {
+    navigation.navigate("CharacterScreen", {
       searchedCharacter: character,
     });
   };
@@ -66,7 +66,7 @@ const Search = (prop) => {
         style={styles.textInput}
       />
       <TouchableOpacity onPress={searchAPI}>
-        <Text style={styles.buttonText}>Go</Text>
+        <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
     </View>
   );
