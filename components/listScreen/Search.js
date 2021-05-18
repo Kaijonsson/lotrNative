@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,15 +8,17 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import globals from "../../styles/globals";
-import Error from "../Error";
 import Axios from "axios";
 import { SWAPI_SEARCH, LOTR_SEARCH, BEARER_TOKEN } from "@env";
+import { unsuccessful, emptyError } from "../errorMessages";
 
 const Search = (prop) => {
   const navigation = useNavigation();
 
   const listChoice = prop.props;
   const [userInput, setUserInput] = useState("");
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const Navigation = (character) => {
     navigation.navigate("CharacterScreen", {
@@ -30,8 +32,10 @@ const Search = (prop) => {
   };
 
   const searchAPI = () => {
+    setErrorMessage("");
     if (!userInput) {
-      return <Error />;
+      setErrorMessage(emptyError);
+      return;
     }
     if (listChoice.listName === "starwars") {
       try {
@@ -44,12 +48,18 @@ const Search = (prop) => {
     }
     if (listChoice.listName === "lotr") {
       try {
-        console.log(LOTR_SEARCH);
         Axios.get(`${LOTR_SEARCH + capitalizeFirstLetter(userInput)}`, {
           headers: {
             authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }).then((response) => {
+          if (response.data.docs.length === 0) {
+            setErrorMessage(unsuccessful);
+            return;
+          } else {
+            console.log(response.data);
+            Navigation(response.data.docs[0]);
+          }
           console.log(response);
         });
       } catch (err) {
@@ -68,6 +78,7 @@ const Search = (prop) => {
 
   return (
     <View style={styles.inputContainer}>
+      <Text style={styles.errorText}>{errorMessage}</Text>
       <TextInput
         onChangeText={(userInput) => setUserInput(userInput)}
         placeholder={addPlaceholder(listChoice)}
@@ -102,5 +113,10 @@ const styles = StyleSheet.create({
     color: globals.textColor.yellowGrey,
     textAlign: "center",
     fontSize: 20,
+  },
+  errorText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 18,
   },
 });

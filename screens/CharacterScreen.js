@@ -10,18 +10,13 @@ function CharacterScreen({ route }) {
   const searchedCharacter = route.params.searchedCharacter;
 
   const character = pressedCharacter ? pressedCharacter : searchedCharacter;
-  try {
-    const chosenCharacter = dataBase.characters.find(
-      (element) => element.name === character.name
-    );
-  } catch (err) {
-    if (err) {
-      return <Error />;
-    }
-  }
+
+  const chosenCharacter = dataBase.characters.find(
+    (element) => element.name === character.name
+  );
   const characterCard = () => {
-    console.log(character);
     try {
+      console.log(chosenCharacter);
       return (
         <View style={styles.background}>
           <Image
@@ -33,7 +28,6 @@ function CharacterScreen({ route }) {
         </View>
       );
     } catch (err) {
-      console.log(character);
       if (character === undefined) {
         return <Error />;
       }
