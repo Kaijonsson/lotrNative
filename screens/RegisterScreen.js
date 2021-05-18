@@ -5,6 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Modal,
+  Pressable,
 } from "react-native";
 import globals from "../styles/globals";
 import Axios from "axios";
@@ -14,24 +16,45 @@ const RegisterScreen = () => {
   const [userLastName, setUserLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
+  const [responseName, setResponseName] = useState("");
+  const [responseLastName, setResponseLastName] = useState("");
+  const [responseEmail, setResponseEmail] = useState("");
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   const clearName = useRef();
   const clearLastName = useRef();
   const clearEmail = useRef();
 
   const sendUserData = () => {
-    console.log(userFirstName);
-
-    Axios.post("http://127.0.0.1:3001/register", {
-      firstName: userFirstName,
-      lastName: userLastName,
-      email: userEmail,
+    Axios.post("https://jsonplaceholder.typicode.com/posts", {
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+      },
+      body: {
+        firstName: userFirstName,
+        lastName: userLastName,
+        email: userEmail,
+      },
     })
       .then((response) => {
-        console.log(response);
+        if (!userFirstName || !userLastName || !userEmail) {
+          console.log("gotcha!");
+          return;
+        } else {
+          setModalVisible(true);
+          setResponseName(response.data.body.firstName);
+          setResponseLastName(response.data.body.lastName);
+          setResponseEmail(response.data.body.email);
+          console.log(response.data.body.firstName);
+          console.log(response.data.body.lastName);
+          console.log(response.data.body.email);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+
     clearName.current.clear();
     clearLastName.current.clear();
     clearEmail.current.clear();
@@ -62,6 +85,40 @@ const RegisterScreen = () => {
       <TouchableOpacity onPress={sendUserData}>
         <Text style={styles.text}>Submit</Text>
       </TouchableOpacity>
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text>Name: {responseName + " " + responseLastName}</Text>
+              <Text>Email: {responseEmail}</Text>
+              <Text style={styles.modalText}>
+                Thank you for your interest {responseName}! We look forward to
+                hearing from you again!
+              </Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Back</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        {/* <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable> */}
+      </View>
     </View>
   );
 };
@@ -90,4 +147,79 @@ const styles = StyleSheet.create({
     padding: 5,
     color: globals.textColor.yellowGrey,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
 });
+
+// const [modalVisible, setModalVisible] = useState(false);
+// return (
+//   <View style={styles.centeredView}>
+//     <Modal
+//       animationType="slide"
+//       transparent={true}
+//       visible={modalVisible}
+//       onRequestClose={() => {
+//         Alert.alert("Modal has been closed.");
+//         setModalVisible(!modalVisible);
+//       }}
+//     >
+//       <View style={styles.centeredView}>
+//         <View style={styles.modalView}>
+//           <Text style={styles.modalText}>Hello World!</Text>
+//           <Pressable
+//             style={[styles.button, styles.buttonClose]}
+//             onPress={() => setModalVisible(!modalVisible)}
+//           >
+//             <Text style={styles.textStyle}>Hide Modal</Text>
+//           </Pressable>
+//         </View>
+//       </View>
+//     </Modal>
+//     <Pressable
+//       style={[styles.button, styles.buttonOpen]}
+//       onPress={() => setModalVisible(true)}
+//     >
+//       <Text style={styles.textStyle}>Show Modal</Text>
+//     </Pressable>
+//   </View>
+// );
+// };
