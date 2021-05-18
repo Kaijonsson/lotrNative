@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import Footer from "../components/app/Footer";
 import CharacterList from "../components/listScreen/CharacterList";
 import Search from "../components/listScreen/Search";
 import globals from "../styles/globals";
@@ -11,6 +12,7 @@ function List({ route }) {
     <View style={styles.mainContainer}>
       <Search props={listChoice} />
       <CharacterList props={listChoice} style={styles.list} />
+      <Footer />
     </View>
   );
 }

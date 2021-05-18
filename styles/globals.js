@@ -9,9 +9,11 @@ export default {
 
   fontSize: {
     headerOne: 30,
+    headerTwo: 20,
   },
 
   headerOptions: {
+    title: "",
     headerStyle: {
       backgroundColor: "black",
     },

@@ -2,15 +2,23 @@ import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import globals from "../styles/globals";
 import dataBase from "../assets/characters/charObject";
+import Footer from "../components/app/Footer";
+import Error from "../components/Error";
 
 function CharacterScreen({ route }) {
   const pressedCharacter = route.params.characterData;
   const searchedCharacter = route.params.searchedCharacter;
 
   const character = pressedCharacter ? pressedCharacter : searchedCharacter;
-  const chosenCharacter = dataBase.characters.find(
-    (element) => element.name === character.name
-  );
+  try {
+    const chosenCharacter = dataBase.characters.find(
+      (element) => element.name === character.name
+    );
+  } catch (err) {
+    if (err) {
+      return <Error />;
+    }
+  }
   const characterCard = () => {
     console.log(character);
     try {
@@ -27,13 +35,7 @@ function CharacterScreen({ route }) {
     } catch (err) {
       console.log(character);
       if (character === undefined) {
-        return (
-          <View style={styles.background}>
-            <Text style={styles.text}>
-              Couldn't find what you where looking for
-            </Text>
-          </View>
-        );
+        return <Error />;
       }
       if (chosenCharacter === undefined) {
         return (
@@ -50,7 +52,12 @@ function CharacterScreen({ route }) {
     }
   };
 
-  return <View style={styles.sizingContainer}>{characterCard()}</View>;
+  return (
+    <View style={styles.sizingContainer}>
+      {characterCard()}
+      <Footer />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

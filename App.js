@@ -7,6 +7,7 @@ import Home from "./screens/HomeScreen";
 import List from "./screens/ListScreen";
 import globals from "./styles/globals";
 import CharacterScreen from "./screens/CharacterScreen";
+import Register from "./screens/RegisterScreen";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -27,6 +28,11 @@ export default function App() {
           options={globals.headerOptions}
           name="CharacterScreen"
           component={CharacterScreen}
+        />
+        <Stack.Screen
+          options={globals.headerOptions}
+          name="RegisterScreen"
+          component={Register}
         />
       </Stack.Navigator>
     </NavigationContainer>

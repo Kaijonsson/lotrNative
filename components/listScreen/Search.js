@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import globals from "../../styles/globals";
+import Error from "../Error";
 import Axios from "axios";
 import { SWAPI_SEARCH, LOTR_SEARCH, BEARER_TOKEN } from "@env";
 
@@ -22,8 +23,16 @@ const Search = (prop) => {
       searchedCharacter: character,
     });
   };
+  const capitalizeFirstLetter = (string) => {
+    const toLower = string.toLowerCase();
+
+    return toLower.charAt(0).toUpperCase() + toLower.slice(1);
+  };
 
   const searchAPI = () => {
+    if (!userInput) {
+      return <Error />;
+    }
     if (listChoice.listName === "starwars") {
       try {
         Axios.get(`${SWAPI_SEARCH + userInput}`).then((response) => {
@@ -34,15 +43,14 @@ const Search = (prop) => {
       }
     }
     if (listChoice.listName === "lotr") {
-      console.log(listChoice);
       try {
-        Axios.get(`${LOTR_SEARCH + userInput}`, {
+        console.log(LOTR_SEARCH);
+        Axios.get(`${LOTR_SEARCH + capitalizeFirstLetter(userInput)}`, {
           headers: {
             authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }).then((response) => {
           console.log(response);
-          console.log(response.data);
         });
       } catch (err) {
         console.log(err);
