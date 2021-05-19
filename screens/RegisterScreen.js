@@ -8,6 +8,7 @@ import {
   Modal,
   Pressable,
 } from "react-native";
+import { emptyError } from "../components/errorMessages";
 import globals from "../styles/globals";
 import Axios from "axios";
 
@@ -19,6 +20,7 @@ const RegisterScreen = () => {
   const [responseName, setResponseName] = useState("");
   const [responseLastName, setResponseLastName] = useState("");
   const [responseEmail, setResponseEmail] = useState("");
+  const [responseError, setResponseError] = useState("");
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -27,6 +29,7 @@ const RegisterScreen = () => {
   const clearEmail = useRef();
 
   const sendUserData = () => {
+    setResponseError("");
     Axios.post("https://jsonplaceholder.typicode.com/posts", {
       headers: {
         "content-type": "application/json; charset=UTF-8",
@@ -39,16 +42,13 @@ const RegisterScreen = () => {
     })
       .then((response) => {
         if (!userFirstName || !userLastName || !userEmail) {
-          console.log("gotcha!");
+          setResponseError(emptyError);
           return;
         } else {
           setModalVisible(true);
           setResponseName(response.data.body.firstName);
           setResponseLastName(response.data.body.lastName);
           setResponseEmail(response.data.body.email);
-          console.log(response.data.body.firstName);
-          console.log(response.data.body.lastName);
-          console.log(response.data.body.email);
         }
       })
       .catch((err) => {
@@ -76,6 +76,7 @@ const RegisterScreen = () => {
         style={styles.input}
       ></TextInput>
       <Text style={styles.text}>Email</Text>
+      <Text style={globals.errorMessage.style}>{responseError}</Text>
       <TextInput
         ref={clearEmail}
         autoCompleteType="email"

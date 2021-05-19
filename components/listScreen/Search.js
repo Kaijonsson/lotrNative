@@ -20,9 +20,11 @@ const Search = (prop) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  const userChoice = prop.props.listName;
   const Navigation = (character) => {
     navigation.navigate("CharacterScreen", {
       searchedCharacter: character,
+      userChoice: userChoice,
     });
   };
   const capitalizeFirstLetter = (string) => {
@@ -40,6 +42,10 @@ const Search = (prop) => {
     if (listChoice.listName === "starwars") {
       try {
         Axios.get(`${SWAPI_SEARCH + userInput}`).then((response) => {
+          if (response.data.count === 0) {
+            setErrorMessage(unsuccessful);
+            return;
+          }
           Navigation(response.data.results[0]);
         });
       } catch (err) {
@@ -78,7 +84,7 @@ const Search = (prop) => {
 
   return (
     <View style={styles.inputContainer}>
-      <Text style={styles.errorText}>{errorMessage}</Text>
+      <Text style={globals.errorMessage.style}>{errorMessage}</Text>
       <TextInput
         onChangeText={(userInput) => setUserInput(userInput)}
         placeholder={addPlaceholder(listChoice)}

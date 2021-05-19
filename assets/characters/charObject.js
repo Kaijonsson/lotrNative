@@ -12,5 +12,9 @@ export default {
       name: "Aegnor",
       image: require("./aegnor.jpg"),
     },
+    {
+      name: "Legolas",
+      image: require("./legolas.jpg"),
+    },
   ],
 };

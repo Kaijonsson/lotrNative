@@ -6,17 +6,22 @@ import Footer from "../components/app/Footer";
 import Error from "../components/Error";
 
 function CharacterScreen({ route }) {
+  console.log("route: ", route);
   const pressedCharacter = route.params.characterData;
   const searchedCharacter = route.params.searchedCharacter;
+  console.log("search: ", searchedCharacter);
+  const userChoice = route.params.userChoice;
 
-  const character = pressedCharacter ? pressedCharacter : searchedCharacter;
+  console.log("userChoice: ", route.params.userChoice);
+
+  const character = pressedCharacter ?? searchedCharacter;
 
   const chosenCharacter = dataBase.characters.find(
     (element) => element.name === character.name
   );
+
   const characterCard = () => {
     try {
-      console.log(chosenCharacter);
       return (
         <View style={styles.background}>
           <Image
@@ -56,8 +61,7 @@ function CharacterScreen({ route }) {
 
 const styles = StyleSheet.create({
   sizingContainer: {
-    height: "100%",
-    width: "100%",
+    flex: 1,
   },
   background: {
     backgroundColor: globals.backgroundColor.mainBackground,

@@ -19,4 +19,10 @@ export default {
     },
     headerTintColor: "#8a8320",
   },
+  errorMessage: {
+    style: {
+      fontSize: 20,
+      color: "white",
+    },
+  },
 };
