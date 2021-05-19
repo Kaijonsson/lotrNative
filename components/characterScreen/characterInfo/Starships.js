@@ -19,12 +19,6 @@ const Starships = (data) => {
     );
   });
 
-  const renderStarship = (
-    <View>
-      <Text style={styles.charrText}>Starship: "{starship}"</Text>
-    </View>
-  );
-
   useEffect(() => {
     if (character.starships.length === 0) {
       setStarship('Starship: "No ship affilitation"');
@@ -42,6 +36,15 @@ const Starships = (data) => {
       });
     }
   }, []);
+
+  let renderStarship = (
+    <View>
+      <Text style={styles.charrText}>Starship: "{starship}"</Text>
+    </View>
+  );
+  if (starship === null || starship === undefined) {
+    renderStarship === false;
+  }
   return renderStarship ?? mappedArrey;
 };
 
