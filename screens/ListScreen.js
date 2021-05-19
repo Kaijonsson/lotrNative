@@ -7,7 +7,6 @@ import globals from "../styles/globals";
 
 function List({ route }) {
   const listChoice = route.params;
-  // console.log(listChoice);
   return (
     <View style={styles.mainContainer}>
       <Search props={listChoice} />

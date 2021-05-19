@@ -12,7 +12,6 @@ function CharacterList({ props }) {
 
   const userChoice = props.listName;
   useEffect(() => {
-    // console.log(userChoice);
     try {
       if (userChoice === "starwars") {
         Axios.get(`${SWAPI_URL}/people/`).then((response) => {

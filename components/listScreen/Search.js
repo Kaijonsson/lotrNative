@@ -63,10 +63,8 @@ const Search = (prop) => {
             setErrorMessage(unsuccessful);
             return;
           } else {
-            console.log(response.data);
             Navigation(response.data.docs[0]);
           }
-          console.log(response);
         });
       } catch (err) {
         console.log(err);
