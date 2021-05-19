@@ -13,7 +13,7 @@ const Starships = (data) => {
     return (
       <View>
         <Text key={ship} style={styles.charrText}>
-          {ship}
+          Starship: "{ship}"
         </Text>
       </View>
     );
@@ -21,7 +21,7 @@ const Starships = (data) => {
 
   const renderStarship = (
     <View>
-      <Text style={styles.charrText}>{starship}</Text>
+      <Text style={styles.charrText}>Starship: "{starship}"</Text>
     </View>
   );
 
@@ -42,7 +42,7 @@ const Starships = (data) => {
       });
     }
   }, []);
-  return renderStarship || mappedArrey;
+  return renderStarship ?? mappedArrey;
 };
 
 export default Starships;
