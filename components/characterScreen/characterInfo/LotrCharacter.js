@@ -6,7 +6,7 @@ const LotrCharacter = (data) => {
   const character = data.data;
   console.log(character);
   return (
-    <View>
+    <View style={styles.positioningContainer}>
       <Text style={styles.charrText}>Name: "{character.name}"</Text>
       <Text style={styles.charrText}>Birth Year: "{character.birth}"</Text>
       <Text style={styles.charrText}>Death: "{character.death}"</Text>
@@ -24,4 +24,5 @@ const styles = StyleSheet.create({
     fontSize: globals.fontSize.headerTwo,
     backgroundColor: globals.backgroundColor.mainBackground,
   },
+  positioningContainer: {},
 });

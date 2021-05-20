@@ -17,7 +17,7 @@ const StarWarsCharacter = (data) => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.positioningContainer}>
       <Text style={styles.charrText}>Name: "{character.name}"</Text>
       <Text style={styles.charrText}>Birth Year: "{character.birth_year}"</Text>
       <Text style={styles.charrText}>Home World: "{characterHomeWorld}"</Text>

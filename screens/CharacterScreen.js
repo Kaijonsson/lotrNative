@@ -20,6 +20,7 @@ function CharacterScreen({ route }) {
 const styles = StyleSheet.create({
   sizingContainer: {
     flex: 1,
+    display: "flex",
   },
 });
 export default CharacterScreen;

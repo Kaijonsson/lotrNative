@@ -14,36 +14,32 @@ const CharacterCard = (props) => {
     (element) => element.name === character.name
   );
 
-  const characterCard = () => {
-    try {
+  try {
+    return (
+      <View style={styles.background}>
+        <Image
+          resizeMode="contain"
+          style={styles.image}
+          source={chosenCharacter.image}
+        />
+      </View>
+    );
+  } catch (err) {
+    if (character === undefined) {
+      return <Error />;
+    }
+    if (chosenCharacter === undefined) {
       return (
         <View style={styles.background}>
           <Image
             resizeMode="contain"
             style={styles.image}
-            source={chosenCharacter.image}
+            source={require("../../assets/favicon.png")}
           />
         </View>
       );
-    } catch (err) {
-      if (character === undefined) {
-        return <Error />;
-      }
-      if (chosenCharacter === undefined) {
-        return (
-          <View style={styles.background}>
-            <Image
-              resizeMode="contain"
-              style={styles.image}
-              source={require("../../assets/favicon.png")}
-            />
-          </View>
-        );
-      }
     }
-  };
-
-  return <View style={styles.sizingContainer}>{characterCard()}</View>;
+  }
 };
 
 export default CharacterCard;
@@ -51,8 +47,8 @@ export default CharacterCard;
 const styles = StyleSheet.create({
   background: {
     backgroundColor: globals.backgroundColor.mainBackground,
-    display: "flex",
     flex: 1,
+    paddingTop: 20,
   },
   text: {
     fontSize: globals.fontSize.headerOne,
@@ -61,8 +57,5 @@ const styles = StyleSheet.create({
   image: {
     height: "60%",
     width: "60%",
-  },
-  sizingContainer: {
-    flex: 1,
   },
 });

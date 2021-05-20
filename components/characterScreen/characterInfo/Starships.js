@@ -8,20 +8,9 @@ const Starships = (data) => {
   const [starship, setStarship] = useState("");
   const [starshipArray, setStarShipArray] = useState([]);
 
-  const mappedArrey = starshipArray.map((ship) => {
-    console.log(ship);
-    return (
-      <View>
-        <Text key={ship} style={styles.charrText}>
-          Starship: "{ship}"
-        </Text>
-      </View>
-    );
-  });
-
   useEffect(() => {
     if (character.starships.length === 0) {
-      setStarship('Starship: "No ship affilitation"');
+      setStarship("No known starship");
     }
     if (character.starships.length === 1) {
       Axios.get(character.starships).then((response) => {
@@ -31,11 +20,22 @@ const Starships = (data) => {
     if (character.starships.length > 1) {
       character.starships.forEach((element) => {
         Axios.get(element).then((response) => {
+          //   console.log(response.data.name);
           setStarShipArray([...starshipArray, response.data.name]);
         });
       });
     }
   }, []);
+  const mappedArrey = starshipArray.map((ship) => {
+    console.log(ship);
+    return (
+      <View key={ship}>
+        <Text key={ship} style={styles.charrText}>
+          Starship: "{ship}"
+        </Text>
+      </View>
+    );
+  });
 
   let renderStarship = (
     <View>
@@ -45,7 +45,8 @@ const Starships = (data) => {
   if (starship === null || starship === undefined) {
     renderStarship === false;
   }
-  return renderStarship ?? mappedArrey;
+
+  return renderStarship ?? { mappedArrey };
 };
 
 export default Starships;
