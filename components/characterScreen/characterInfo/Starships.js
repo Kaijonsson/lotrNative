@@ -26,6 +26,9 @@ const Starships = (data) => {
       });
     }
   }, []);
+
+  //I'm not getting this part to work. (Line 20-42) There is something that i have missunderstood in how you render
+  //an array. I decided to let it be for now. The main function of the app is working fine.
   const mappedArrey = starshipArray.map((ship) => {
     console.log(ship);
     return (
