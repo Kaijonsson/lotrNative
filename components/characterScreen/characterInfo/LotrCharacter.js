@@ -4,7 +4,6 @@ import globals from "../../../styles/globals";
 
 const LotrCharacter = (data) => {
   const character = data.data;
-  console.log(character);
   return (
     <View style={styles.positioningContainer}>
       <Text style={styles.charrText}>Name: "{character.name}"</Text>
